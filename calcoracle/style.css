@@ -1,0 +1,229 @@
+
+/* ===================================================================
+   STYLE: Vertical layout, stable spacing, harmonious colors (teal/navy)
+   =================================================================== */
+
+:root{
+    --bg: #f7fafc;          /* page background (very light) */
+    --surface: #ffffff;     /* cards/tables background */
+    --muted: #6b7280;       /* secondary text */
+    --text: #0f172a;        /* primary text (slate-900) */
+    --border: #e5e7eb;      /* soft borders */
+    --accent: #0ea5a6;      /* teal-500 */
+    --accent-700: #0c8c8d;  /* teal-600/700 mix */
+    --accent-100: #e6fbfb;  /* very light accent */
+    --good: #16a34a;        /* green-600 */
+    --warn: #d97706;        /* amber-600 */
+    --bad:  #dc2626;        /* red-600 */
+    --shadow: 0 6px 18px rgba(2, 44, 53, 0.08);
+}
+
+*{ box-sizing:border-box; }
+html, body{ height:100%; margin:0; padding:0; }
+
+/* ====== Page ====== */
+body{
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container{
+    max-width: 980px;                /* vertical single column */
+    margin: 0 auto;
+    padding: 24px 18px 60px;
+    display: block;
+}
+
+/* Vertical sections */
+.section{
+    margin: 0 0 28px 0;              /* stack sections in vertical */
+}
+
+/* ====== Headers ====== */
+h1, h2, h3{
+    color: var(--text);
+    margin: 0 0 10px 0;
+    line-height: 1.25;
+}
+h1{ font-size: 30px; font-weight: 800; }
+h2{ font-size: 22px; font-weight: 700; color: var(--accent-700); }
+h3{ font-size: 16px; font-weight: 700; color: var(--muted); }
+
+.lead{
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 6px;
+}
+
+/* ====== Cards (for KPI / panels) ====== */
+.card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: var(--shadow);
+}
+
+.kpi-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;    /* simple 3-up desktop */
+    gap: 14px;
+}
+@media (max-width: 900px){
+    .kpi-grid{ grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px){
+    .kpi-grid{ grid-template-columns: 1fr; } /* vertical on mobile */
+}
+
+.kpi .kpi-title{ font-size: 12px; text-transform: uppercase; letter-spacing:.6px; color: var(--muted); }
+.kpi .kpi-value{ font-size: 26px; font-weight: 800; color: var(--text); }
+.kpi.good  .kpi-value{ color: var(--good); }
+.kpi.warn  .kpi-value{ color: var(--warn); }
+.kpi.bad   .kpi-value{ color: var(--bad); }
+.kpi .kpi-sub{ font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+/* ====== Links/Buttons (consistent harmony) ====== */
+a.link-btn, .btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    transition: transform .1s ease, box-shadow .2s ease, background .2s ease;
+    box-shadow: var(--shadow);
+}
+a.link-btn:hover, .btn:hover{
+    transform: translateY(-1px);
+    background: var(--accent-700);
+}
+a.link-btn.ghost, .btn.ghost{
+    background: #ffffff;
+    color: var(--accent-700);
+    border-color: var(--accent-700);
+}
+a.link-btn.ghost:hover, .btn.ghost:hover{
+    background: var(--accent-100);
+}
+
+/* ====== Table: Classifica ====== */
+.table-wrap{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.table-league{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 680px;
+}
+
+.table-league thead th{
+    background: linear-gradient(180deg, #f5ffff, #e8fbfb);
+    color: var(--accent-700);
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+    font-weight: 800;
+    padding: 12px;
+}
+
+.table-league tbody td{
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+    background: #fff;
+}
+
+.table-league tbody tr:nth-child(odd) td{ background: #fcfefe; }
+.table-league tbody tr:hover td{ background: #f2fbfb; }
+
+/* key columns */
+.table-league td.gd, .table-league td.points{ font-weight: 800; color: var(--accent-700); }
+
+/* rank bubble (stable sizes) */
+.col-rank{ width: 56px; }
+.rank{
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 999px;
+    background: var(--accent); color: #fff; font-weight: 800; font-size: 13px;
+}
+
+/* optional markers */
+.rank--ucl{ background: #0284c7; }   /* blue-600 */
+.rank--uel{ background: #0369a1; }   /* blue-700 */
+.rank--releg{ background: var(--bad); }
+
+/* team cell (no misalignment) */
+.team-cell{ display:flex; align-items:center; gap:10px; justify-content:flex-start; text-align:left; }
+.team-cell img.logo-sm{ width:22px; height:22px; object-fit:contain; }
+
+/* form dots */
+.form{ display:flex; gap:6px; justify-content:center; }
+.form .dot{ width:10px; height:10px; border-radius:50%; background:#e5e7eb; border:1px solid #d1d5db; }
+.form .dot.W{ background: #86efac; border-color:#22c55e; }
+.form .dot.D{ background: #fde68a; border-color:#f59e0b; }
+.form .dot.L{ background: #fecaca; border-color:#ef4444; }
+
+/* ====== Notices & badges ====== */
+.badge{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:6px 10px; border-radius:999px; font-size:12px; font-weight:700;
+    border:1px solid var(--border); background:#fff; color: var(--accent-700);
+}
+.badge--good{ color: var(--good); border-color:#86efac; background:#f0fdf4; }
+.badge--warn{ color: var(--warn); border-color:#fde68a; background:#fffbeb; }
+.badge--bad{  color: var(--bad);  border-color:#fecaca; background:#fef2f2; }
+
+.notice{
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    color: var(--muted);
+    box-shadow: var(--shadow);
+}
+
+/* ====== Simple vertical toolbar (no sticky, no offsets) ====== */
+.toolbar{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0 16px 0;   /* vertical spacing only */
+}
+.toolbar > *{ margin: 0; }
+
+label{ display:block; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+select, input[type="text"]{
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--text);
+    font-size: 14px;
+}
+
+/* ====== Utilities ====== */
+.row{ display:flex; gap:10px; flex-wrap:wrap; }
+.stack{ display:flex; flex-direction:column; gap:14px; }
+.muted{ color: var(--muted); }
+
+/* ====== Responsive tweaks (vertical-first) ====== */
+@media (max-width: 640px){
+    .table-league{ font-size: 13px; min-width: 600px; } /* keep horizontal scroll for table only */
+    h1{ font-size: 26px; }
+}
